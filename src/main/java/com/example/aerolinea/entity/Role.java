@@ -1,4 +1,4 @@
-package com.example.aerolinea.Entity;
+package com.example.aerolinea.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

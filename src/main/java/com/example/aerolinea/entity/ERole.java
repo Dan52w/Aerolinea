@@ -1,4 +1,4 @@
-package com.example.aerolinea.Entity;
+package com.example.aerolinea.entity;
 
 public enum ERole {
     ROLE_ADMIN,

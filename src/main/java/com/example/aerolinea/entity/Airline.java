@@ -14,13 +14,13 @@ public class Airline {
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String name;
 
     @Column(nullable = false)
-    private String codigoAerolinea;
+    private String codeAirline;
 
     @Column(nullable = false)
-    private String paisOrigen;
+    private String countryOrigin;
 
     @ManyToOne
     @JoinColumn(name = "idflight")

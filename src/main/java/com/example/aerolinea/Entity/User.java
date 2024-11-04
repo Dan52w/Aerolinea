@@ -1,30 +1,30 @@
-package com.example.Entity;
+package com.example.aerolinea.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Passengers")
+@Table(name = "Users")
 @Getter
 @Setter
-public class Passenger {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String username;
+    private String password;
     private String firstName;
     private String lastName;
-    private int age;
-    private int identification;
     private String email;
     private String phone;
-    private String gender;
-    private LocalDateTime flightdate;
+    private String address;
+    private LocalDate dob;
 
-    @OneToMany(mappedBy = "pasajeros")
+    @OneToMany(mappedBy = "user")
     private List<Booking> Reservations;
 }

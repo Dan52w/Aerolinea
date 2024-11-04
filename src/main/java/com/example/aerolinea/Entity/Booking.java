@@ -1,4 +1,4 @@
-package com.example.Entity;
+package com.example.aerolinea.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,26 +8,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "flights")
+@Table(name = "Reservations")
 @Getter
 @Setter
-public class Flight {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String origin;
-    private String destination;
-    private LocalDateTime departureDate;
-    private LocalDateTime timeArrival;
-    private LocalDateTime duration;
-    private int ability;
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User user;
 
-    @OneToMany(mappedBy = "fligth")
-    private List<Airport> airports;
+    private LocalDateTime reservationDate;
+    private int numberPassengers;
 
-    @OneToMany(mappedBy = "flight")
-    private List<Airline> airlines;
+    @ManyToOne
+    @JoinColumn(name = "idPassenger")
+    private Passenger passenger;
 
     @ManyToMany
     @JoinTable(
@@ -35,5 +33,5 @@ public class Flight {
             joinColumns = @JoinColumn(name = "idFlight",  referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "idBooking", referencedColumnName = "id")
     )
-    private List<Booking> Reservations;
+    private List<Flight> flights;
 }

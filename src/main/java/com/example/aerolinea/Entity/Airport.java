@@ -1,26 +1,21 @@
-package com.example.Entity;
+package com.example.aerolinea.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Airlines")
+@Table(name = "Airports")
 @Getter
 @Setter
-public class Airline {
+public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String nombre;
-
-    @Column(nullable = false)
-    private String codigoAerolinea;
-
-    @Column(nullable = false)
-    private String paisOrigen;
+    private String name;
+    private String city;
+    private String country;
 
     @ManyToOne
     @JoinColumn(name = "idflight")

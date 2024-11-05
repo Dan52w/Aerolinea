@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PassengerService {
-    PassengerDto searcsavePassenger(PassengerDto passengerDto);
+    PassengerDto savePassenger(PassengerDto passengerDto);
     Optional<PassengerDto> searchPassengerById(Long id);
     List<PassengerDto> searchPassengers();
     List<PassengerDto>searchPassengerByName(String name);

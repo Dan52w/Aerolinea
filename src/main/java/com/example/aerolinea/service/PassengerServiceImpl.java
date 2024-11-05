@@ -21,7 +21,7 @@ public class PassengerServiceImpl  implements PassengerService{
     }
 
     @Override
-    public PassengerDto searcsavePassenger(PassengerDto passengerDto) {
+    public PassengerDto savePassenger(PassengerDto passengerDto) {
         Passenger passenger = passengerMapper.INSTANCE.toPassenger(passengerDto);
         return passengerMapper.INSTANCE.toPassengerDTOID(passengerRepository.save(passenger));
     }

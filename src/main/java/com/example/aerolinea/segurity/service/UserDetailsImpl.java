@@ -16,28 +16,15 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
-    private String email;
 
     @JsonIgnore
     private String password;
-
-    private LocalDate dob;
-    private String firstName;
-    private String phone;
-    private String lastName;
-    private String address;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, LocalDate dob, String firstName, String phone, String lastName, String address, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.password = password;
-        this.dob = dob;
-        this.firstName = firstName;
-        this.phone = phone;
-        this.lastName = lastName;
-        this.address = address;
         this.authorities = authorities;
     }
 
@@ -47,13 +34,7 @@ public class UserDetailsImpl implements UserDetails {
                 .collect(Collectors.toList());
         return new UserDetailsImpl(user.getId(),
                 user.getUsername(),
-                user.getEmail(),
                 user.getPassword(),
-                user.getDob(),
-                user.getFirstName(),
-                user.getPhone(),
-                user.getLastName(),
-                user.getAddress(),
                 authorities);
     }
 }

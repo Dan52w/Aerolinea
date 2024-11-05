@@ -1,11 +1,13 @@
 package com.example.aerolinea.dto;
 
+import ch.qos.logback.core.model.ComponentModel;
 import com.example.aerolinea.entity.Airline;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AirlineMapper {
     AirlineMapper INSTANCE = Mappers.getMapper(AirlineMapper.class);
 

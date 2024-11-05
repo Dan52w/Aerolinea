@@ -6,8 +6,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface AiportMapper {
-    AiportMapper INSTANCE = Mappers.getMapper(AiportMapper.class);
+public interface AirportMapper {
+    AirportMapper INSTANCE = Mappers.getMapper(AirportMapper.class);
 
     @Mapping(source = "id", target = "id", ignore = true)
     Airport toAirport(AirportDto airportDto);

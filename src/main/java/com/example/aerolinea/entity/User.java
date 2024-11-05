@@ -16,11 +16,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "username", unique = true)
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+
+    @Column(name = "email", unique = true)
     private String email;
+
     private String phone;
     private String address;
     private LocalDate dob;

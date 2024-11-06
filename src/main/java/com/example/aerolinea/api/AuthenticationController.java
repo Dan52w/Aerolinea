@@ -24,10 +24,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-    PasswordEncoder passwordEncoder;
+    @Autowired PasswordEncoder passwordEncoder;
+    @Autowired
     private AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserRepository userRepository;
 
     public AuthenticationController(JwtUtil jwtUtil, UserRepository userRepository) {
         this.jwtUtil = jwtUtil;
@@ -45,7 +48,7 @@ public class AuthenticationController {
         UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(role -> role.getAuthority()).collect(Collectors.toList());
-        return ResponseEntity.ok(new JwtResponse(jwtToken, "Bearer ", userDetails.getUsername(), roles));
+        return ResponseEntity.ok(new JwtResponse(jwtToken, "Bearer", userDetails.getUsername(), roles));
     }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest sRequest){

@@ -33,19 +33,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> searchUserByName(String name) {
-        List<User> users = userRepository.findbyusername(name);
-        return toListUserDTO(users);
-    }
-
-    @Override
     public Optional<UserDto> searchUserByEmail(String email) {
-        return userRepository.findbyEmail(email).map(userMapper::toUserDTOID);
+        return userRepository.findByEmail(email).map(userMapper::toUserDTOID);
     }
 
     @Override
     public Optional<UserDto> searchUserByUsername(String username) {
-        return userRepository.findbyname(username).map(userMapper::toUserDTOID);
+        return userRepository.findByUsername(username).map(userMapper::toUserDTOID);
     }
 
     @Override
@@ -56,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> searchUserbyIds(List<Long> ids) {
-        List<User> users = userRepository.findbyidIn(ids);
+        List<User> users = userRepository.findByidIn(ids);
         return toListUserDTO(users);
     }
 

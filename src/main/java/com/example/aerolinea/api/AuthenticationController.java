@@ -22,16 +22,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
-    @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtUtil jwtUtil;
-    @Autowired
-    UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
+
+    public AuthenticationController(JwtUtil jwtUtil, UserRepository userRepository) {
+        this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
@@ -43,7 +45,7 @@ public class AuthenticationController {
         UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(role -> role.getAuthority()).collect(Collectors.toList());
-        return ResponseEntity.ok(new JwtResponse(jwtToken, "Bearer", userDetails.getUsername(), roles));
+        return ResponseEntity.ok(new JwtResponse(jwtToken, "Bearer ", userDetails.getUsername(), roles));
     }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest sRequest){

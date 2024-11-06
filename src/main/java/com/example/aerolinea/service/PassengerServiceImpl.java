@@ -39,13 +39,13 @@ public class PassengerServiceImpl  implements PassengerService{
 
     @Override
     public List<PassengerDto> searchPassengerByName(String name) {
-        List<Passenger> passengers = passengerRepository.findbyname(name);
+        List<Passenger> passengers = passengerRepository.findByFirstName(name);
         return toListPassengerDTO(passengers);
     }
 
     @Override
     public List<PassengerDto> searchPassengerByIds(List<Long> ids) {
-        List<Passenger> passengers = passengerRepository.findbyidIn(ids);
+        List<Passenger> passengers = passengerRepository.findByidIn(ids);
         return toListPassengerDTO(passengers);
     }
 

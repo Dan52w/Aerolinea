@@ -33,7 +33,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightDto> searchFlightByName(String name) {
-        List<Flight> flights = flightRepository.findbyname(name);
+        List<Flight> flights = flightRepository.findByOrigin(name);
         return toListFlightDTO(flights);
     }
 
@@ -45,7 +45,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightDto> searchFlightByIds(List<Long> ids) {
-        List<Flight> flights = flightRepository.findbyidIn(ids);
+        List<Flight> flights = flightRepository.findByidIn(ids);
         return toListFlightDTO(flights);
     }
 

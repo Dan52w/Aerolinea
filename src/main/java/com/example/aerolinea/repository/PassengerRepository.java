@@ -7,6 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
-    List<Passenger> findbyname(String passengertName);
-    List<Passenger> findbyidIn(Collection<Long> ids);
+    List<Passenger> findByFirstName(String passengertName);
+    List<Passenger> findByidIn(Collection<Long> ids);
 }

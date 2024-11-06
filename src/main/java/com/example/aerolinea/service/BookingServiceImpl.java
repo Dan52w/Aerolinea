@@ -33,7 +33,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> searchBookByName(String name) {
-        List<Booking> bookings = bookingRepository.findbyname(name);
+        List<Booking> bookings = bookingRepository.findByPassenger_FirstName(name);
         return toListBookingDTO(bookings);
     }
 
@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> searchBookByIds(List<Long> ids) {
-        List<Booking> bookings = bookingRepository.findbyidIn(ids);
+        List<Booking> bookings = bookingRepository.findByidIn(ids);
         return toListBookingDTO(bookings);
     }
 

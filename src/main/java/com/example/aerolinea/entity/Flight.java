@@ -23,10 +23,10 @@ public class Flight {
     private LocalDateTime duration;
     private int ability;
 
-    @OneToMany(mappedBy = "fligth")
+    @OneToMany(mappedBy = "flights")
     private List<Airport> airports;
 
-    @OneToMany(mappedBy = "flight")
+    @OneToMany(mappedBy = "flights")
     private List<Airline> airlines;
 
     @ManyToMany

@@ -25,6 +25,6 @@ public class Passenger {
     private String gender;
     private LocalDateTime flightdate;
 
-    @OneToMany(mappedBy = "pasajeros")
+    @OneToMany(mappedBy = "passenger")
     private List<Booking> Reservations;
 }

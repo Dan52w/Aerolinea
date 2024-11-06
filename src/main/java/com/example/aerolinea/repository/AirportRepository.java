@@ -7,6 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface AirportRepository extends JpaRepository<Airport, Long> {
-    List<Airport> findbyname(String airportName);
-    List<Airport> findbyidIn(Collection<Long> ids);
+    List<Airport> findByName(String airportName);
+    List<Airport> findByidIn(Collection<Long> ids);
 }

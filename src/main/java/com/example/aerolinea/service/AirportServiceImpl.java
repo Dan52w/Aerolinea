@@ -33,7 +33,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public List<AirportDto> searchAirportByName(String name) {
-        List<Airport> airports = airportRepository.findbyname(name);
+        List<Airport> airports = airportRepository.findByName(name);
         return toListAirportDTO(airports);
     }
 
@@ -45,7 +45,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public List<AirportDto> searchAirportByIds(List<Long> ids) {
-        List<Airport> airports = airportRepository.findbyidIn(ids);
+        List<Airport> airports = airportRepository.findByidIn(ids);
         return toListAirportDTO(airports);
     }
 

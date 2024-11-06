@@ -7,6 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findbyname(String bookingName);
-    List<Booking> findbyidIn(Collection<Long> ids);
+    List<Booking> findByPassenger_FirstName(String bookingName);
+    List<Booking> findByidIn(Collection<Long> ids);
 }

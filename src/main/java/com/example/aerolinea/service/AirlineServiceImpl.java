@@ -33,7 +33,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public List<AirlineDto> searchAirlineByName(String name) {
-        List<Airline> airlines = airlineRepository.finbyname(name);
+        List<Airline> airlines = airlineRepository.findByName(name);
         return toListAirlineDTO(airlines);
     }
 
@@ -45,7 +45,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public List<AirlineDto> searchAirlineByIds(List<Long> ids) {
-        List<Airline> airlines = airlineRepository.finbyidIn(ids);
+        List<Airline> airlines = airlineRepository.findByIdIn(ids);
         return toListAirlineDTO(airlines);
     }
 

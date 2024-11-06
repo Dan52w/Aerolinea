@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/airport")
+@RequestMapping("/airport")
 public class AirportController {
     private final AirportService airportService;
 

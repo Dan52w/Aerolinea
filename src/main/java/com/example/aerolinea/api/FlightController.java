@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/flight")
+@RequestMapping("/flight")
 public class FlightController {
     private final FlightService flightService;
 

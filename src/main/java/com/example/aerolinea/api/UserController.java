@@ -24,7 +24,7 @@ public class UserController {
         return ResponseEntity.ok(userService.searchUsers());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return userService.searchUserById(id)
                 .map(c -> ResponseEntity.ok().body(c))
@@ -36,7 +36,7 @@ public class UserController {
         return createNewUser(userDto);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         Optional<UserDto> userDtoUpdate = userService.updateUser(id, userDto);
         return userDtoUpdate.map(c -> ResponseEntity.ok(c))
@@ -45,7 +45,7 @@ public class UserController {
                 });
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();

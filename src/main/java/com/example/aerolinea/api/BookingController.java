@@ -24,7 +24,7 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.searchReservations());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<BookingDto> getBookingById(@PathVariable Long id) {
         return bookingService.searchBookById(id)
                 .map(c -> ResponseEntity.ok().body(c))
@@ -36,7 +36,7 @@ public class BookingController {
         return createNewBooking(bookingDto);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<BookingDto> updateBooking(@PathVariable Long id, @RequestBody BookingDto bookingDto) {
         Optional<BookingDto>  bookingUpdate = bookingService.searchBookById(id);
         return bookingUpdate.map(c -> ResponseEntity.ok(c))
@@ -45,7 +45,7 @@ public class BookingController {
                 });
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<BookingDto> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBook(id);
         return ResponseEntity.noContent().build();

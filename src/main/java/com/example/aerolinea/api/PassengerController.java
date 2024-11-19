@@ -24,7 +24,7 @@ public class PassengerController {
         return ResponseEntity.ok(passengerService.searchPassengers());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<PassengerDto> getPassengerById(@PathVariable Long id) {
         return passengerService.searchPassengerById(id)
                 .map(c -> ResponseEntity.ok().body(c))
@@ -36,7 +36,7 @@ public class PassengerController {
         return createNewPassenger(passengerDto);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<PassengerDto> updatePassenger(@PathVariable Long id, @RequestBody PassengerDto passengerDto) {
         Optional<PassengerDto> passengerUpdate = passengerService.updatePassenger(id, passengerDto);
         return passengerUpdate.map(c -> ResponseEntity.ok(c))
@@ -45,7 +45,7 @@ public class PassengerController {
                 });
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<PassengerDto> deletePassenger(@PathVariable Long id) {
         passengerService.deletePassengers(id);
         return ResponseEntity.noContent().build();

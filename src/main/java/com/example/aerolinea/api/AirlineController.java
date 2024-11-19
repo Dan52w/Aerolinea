@@ -24,7 +24,7 @@ public class AirlineController {
         return ResponseEntity.ok(airlineService.searchAirlines());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<AirlineDto> getAirlineById(@PathVariable Long id) {
         return  airlineService.searchAirlineById(id)
                 .map(c -> ResponseEntity.ok().body(c))
@@ -32,11 +32,11 @@ public class AirlineController {
     }
 
     @PostMapping()
-    public ResponseEntity<AirlineDto> createAirline(@PathVariable Long id, @RequestBody AirlineDto airlineDto) {
+    public ResponseEntity<AirlineDto> createAirline(@RequestBody AirlineDto airlineDto) {
         return createNewAirline(airlineDto);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<AirlineDto> updateAirline(@PathVariable Long id, @RequestBody AirlineDto airlineDto) {
         Optional<AirlineDto> airlineDtoUpdate = airlineService.UpdateAirline(id, airlineDto);
         return airlineDtoUpdate.map(c -> ResponseEntity.ok(c))
@@ -45,7 +45,7 @@ public class AirlineController {
                 });
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<AirlineDto> deleteAirline(@PathVariable Long id) {
         airlineService.deleteAirline(id);
         return ResponseEntity.noContent().build();

@@ -44,12 +44,6 @@ public class PassengerServiceImpl  implements PassengerService{
     }
 
     @Override
-    public List<PassengerDto> searchPassengerByIds(List<Long> ids) {
-        List<Passenger> passengers = passengerRepository.findByidIn(ids);
-        return toListPassengerDTO(passengers);
-    }
-
-    @Override
     public Optional<PassengerDto> updatePassenger(Long id, PassengerDto passengerDto) {
         return passengerRepository.findById(id).map(oldPassenger ->{
             oldPassenger.setAge(passengerDto.age());

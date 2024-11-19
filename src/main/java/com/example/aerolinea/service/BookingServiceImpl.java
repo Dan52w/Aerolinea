@@ -66,7 +66,7 @@ public class BookingServiceImpl implements BookingService {
     private List<BookingDto> toListBookingDTO(List<Booking> bookings) {
         List<BookingDto> bookingDtos = new ArrayList<>();
         for(Booking booking : bookings) {
-            BookingDto bookingDto = bookingMapper.INSTANCE.toBookingDTOID(booking);
+            bookingDtos.add(bookingMapper.INSTANCE.toBookingDTOID(booking));
         }
         return bookingDtos;
     }

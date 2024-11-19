@@ -1,5 +1,6 @@
 package com.example.aerolinea.dto;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public record FlightDto(Long id,
@@ -7,6 +8,6 @@ public record FlightDto(Long id,
                         String destination,
                         LocalDateTime departureDate,
                         LocalDateTime timeArrival,
-                        LocalDateTime duration,
+                        Duration duration,
                         int ability) {
 }

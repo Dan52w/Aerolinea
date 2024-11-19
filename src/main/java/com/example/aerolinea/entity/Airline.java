@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Airlines")
 @Getter
@@ -22,7 +25,6 @@ public class Airline {
     @Column(nullable = false)
     private String countryOrigin;
 
-    @ManyToOne
-    @JoinColumn(name = "idflight")
-    private Flight flights;
+    @OneToMany(mappedBy = "airline")
+    private List<Flight> flights;
 }

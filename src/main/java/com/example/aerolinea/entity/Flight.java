@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,20 +21,20 @@ public class Flight {
     private String destination;
     private LocalDateTime departureDate;
     private LocalDateTime timeArrival;
-    private LocalDateTime duration;
+    private Duration duration;
     private int ability;
-
-    @OneToMany(mappedBy = "flights")
-    private List<Airport> airports;
-
-    @OneToMany(mappedBy = "flights")
-    private List<Airline> airlines;
 
     @ManyToMany
     @JoinTable(
-            name = "BookFlights",
-            joinColumns = @JoinColumn(name = "idFlight",  referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "idBooking", referencedColumnName = "id")
+            name = "flight_airport",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "airport_id")
     )
+    private List<Airport> airports;
+
+    @JoinColumn(name = "airline_id") // Columna FK en la tabla `flight`
+    private Airline airline;
+
+    @OneToMany(mappedBy = "flight")
     private List<Booking> Reservations;
 }

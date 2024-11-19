@@ -27,11 +27,7 @@ public class Booking {
     @JoinColumn(name = "idPassenger")
     private Passenger passenger;
 
-    @ManyToMany
-    @JoinTable(
-            name = "BookFlights",
-            joinColumns = @JoinColumn(name = "idFlight",  referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "idBooking", referencedColumnName = "id")
-    )
-    private List<Flight> flights;
+    @ManyToOne
+    @JoinColumn(name = "flight_id") // Columna FK en la tabla `Booking`
+    private Flight flight;
 }

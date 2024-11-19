@@ -4,6 +4,7 @@ import com.example.aerolinea.dto.FlightDto;
 import com.example.aerolinea.dto.FlightMapper;
 import com.example.aerolinea.entity.Flight;
 import com.example.aerolinea.repository.FlightRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class FlightServiceImpl implements FlightService {
     private List<FlightDto> toListFlightDTO(List<Flight> flights) {
         List<FlightDto> flightDtos = new ArrayList<>();
         for (Flight flight : flights) {
-            FlightDto flightDto = flightMapper.INSTANCE.toFlightDTOID(flight);
+            flightDtos.add(flightMapper.INSTANCE.toFlightDTOID(flight));
         }
         return flightDtos;
     }

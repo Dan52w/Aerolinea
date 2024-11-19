@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Airports")
 @Getter
@@ -17,7 +19,6 @@ public class Airport {
     private String city;
     private String country;
 
-    @ManyToOne
-    @JoinColumn(name = "idflight")
-    private Flight flights;
+    @ManyToMany(mappedBy = "airports")  // Mapeo de la relación inversa
+    private List<Flight> flights;
 }

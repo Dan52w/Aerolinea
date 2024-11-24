@@ -1,9 +1,12 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.BookingDto;
+import com.example.aerolinea.dto.request.BookingDto;
 import com.example.aerolinea.dto.BookingMapper;
+import com.example.aerolinea.dto.response.BookingDtoGet;
 import com.example.aerolinea.entity.Booking;
 import com.example.aerolinea.repository.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,28 +26,28 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingDto saveBook(BookingDto bookingDto) {
         Booking booking = bookingMapper.INSTANCE.toBooking(bookingDto);
-        return bookingMapper.INSTANCE.toBookingDTOID(bookingRepository.save(booking));
+        return bookingMapper.INSTANCE.toBookingDto(bookingRepository.save(booking));
     }
 
     @Override
     public Optional<BookingDto> searchBookById(Long id) {
-        return bookingRepository.findById(id).map(bookingMapper::toBookingDTOID);
+        return bookingRepository.findById(id).map(bookingMapper::toBookingDto);
     }
 
     @Override
-    public List<BookingDto> searchBookByName(String name) {
+    public List<BookingDtoGet> searchBookByName(String name) {
         List<Booking> bookings = bookingRepository.findByPassenger_FirstName(name);
         return toListBookingDTO(bookings);
     }
 
     @Override
-    public List<BookingDto> searchReservations() {
+    public List<BookingDtoGet> searchReservations() {
         List<Booking> bookings = bookingRepository.findAll();
         return toListBookingDTO(bookings);
     }
 
     @Override
-    public List<BookingDto> searchBookByIds(List<Long> ids) {
+    public List<BookingDtoGet> searchBookByIds(List<Long> ids) {
         List<Booking> bookings = bookingRepository.findByidIn(ids);
         return toListBookingDTO(bookings);
     }
@@ -54,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findById(id).map(oldBooking ->{
             oldBooking.setReservationDate(bookingDto.reservationDate());
             oldBooking.setNumberPassengers(bookingDto.numberPassengers());
-            return bookingMapper.INSTANCE.toBookingDTOID(bookingRepository.save(oldBooking));
+            return bookingMapper.INSTANCE.toBookingDto(bookingRepository.save(oldBooking));
         });
     }
 
@@ -63,10 +66,10 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.deleteById(id);
     }
 
-    private List<BookingDto> toListBookingDTO(List<Booking> bookings) {
-        List<BookingDto> bookingDtos = new ArrayList<>();
+    private List<BookingDtoGet> toListBookingDTO(List<Booking> bookings) {
+        List<BookingDtoGet> bookingDtos = new ArrayList<>();
         for(Booking booking : bookings) {
-            bookingDtos.add(bookingMapper.INSTANCE.toBookingDTOID(booking));
+            bookingDtos.add(bookingMapper.INSTANCE.toBookingDtoGet(booking));
         }
         return bookingDtos;
     }

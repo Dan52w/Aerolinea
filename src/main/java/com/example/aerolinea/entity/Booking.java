@@ -17,14 +17,14 @@ public class Booking {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idUser")
+    @JoinColumn(name = "id_User")
     private User user;
 
     private LocalDateTime reservationDate;
     private int numberPassengers;
 
     @ManyToOne
-    @JoinColumn(name = "idPassenger")
+    @JoinColumn(name = "id_Passenger")
     private Passenger passenger;
 
     @ManyToOne

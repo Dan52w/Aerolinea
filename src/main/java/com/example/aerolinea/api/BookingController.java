@@ -1,6 +1,7 @@
 package com.example.aerolinea.api;
 
-import com.example.aerolinea.dto.BookingDto;
+import com.example.aerolinea.dto.request.BookingDto;
+import com.example.aerolinea.dto.response.BookingDtoGet;
 import com.example.aerolinea.service.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class BookingController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<BookingDto>> getAllBookings() {
+    public ResponseEntity<List<BookingDtoGet>> getAllBookings() {
         return ResponseEntity.ok(bookingService.searchReservations());
     }
 

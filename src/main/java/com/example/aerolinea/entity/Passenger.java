@@ -26,5 +26,5 @@ public class Passenger {
     private LocalDateTime flightdate;
 
     @OneToMany(mappedBy = "passenger")
-    private List<Booking> Reservations;
+    private List<Booking> reservations;
 }

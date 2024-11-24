@@ -10,5 +10,6 @@ import java.util.Optional;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     List<Passenger> findByFirstName(String passengertName);
+    Optional<Passenger> findByIdentification(int identification);
     List<Passenger> findByidIn(Collection<Long> ids);
 }

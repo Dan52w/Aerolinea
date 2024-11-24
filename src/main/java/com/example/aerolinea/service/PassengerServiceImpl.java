@@ -1,7 +1,8 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.PassengerDto;
+import com.example.aerolinea.dto.request.PassengerDto;
 import com.example.aerolinea.dto.PassengerMapper;
+import com.example.aerolinea.dto.response.PassengerDtoGet;
 import com.example.aerolinea.entity.Passenger;
 import com.example.aerolinea.repository.PassengerRepository;
 import org.springframework.stereotype.Service;
@@ -23,22 +24,27 @@ public class PassengerServiceImpl  implements PassengerService{
     @Override
     public PassengerDto savePassenger(PassengerDto passengerDto) {
         Passenger passenger = passengerMapper.INSTANCE.toPassenger(passengerDto);
-        return passengerMapper.INSTANCE.toPassengerDTOID(passengerRepository.save(passenger));
+        return passengerMapper.INSTANCE.toPassengerDto(passengerRepository.save(passenger));
     }
 
     @Override
-    public Optional<PassengerDto> searchPassengerById(Long id) {
-        return passengerRepository.findById(id).map(passengerMapper::toPassengerDTOID);
+    public Optional<PassengerDtoGet> searchPassengerById(Long id) {
+        return passengerRepository.findById(id).map(passengerMapper::toPassengerDtoGetWithReservations);
     }
 
     @Override
-    public List<PassengerDto> searchPassengers() {
+    public Optional<PassengerDtoGet> searchPassengerByIdentification(int Identification) {
+        return passengerRepository.findByIdentification(Identification).map(passengerMapper::toPassengerDtoGetWithReservations);
+    }
+
+    @Override
+    public List<PassengerDtoGet> searchPassengers() {
         List<Passenger> passengers = passengerRepository.findAll();
         return toListPassengerDTO(passengers);
     }
 
     @Override
-    public List<PassengerDto> searchPassengerByName(String name) {
+    public List<PassengerDtoGet> searchPassengerByName(String name) {
         List<Passenger> passengers = passengerRepository.findByFirstName(name);
         return toListPassengerDTO(passengers);
     }
@@ -54,7 +60,7 @@ public class PassengerServiceImpl  implements PassengerService{
             oldPassenger.setLastName(passengerDto.lastName());
             oldPassenger.setIdentification(passengerDto.identification());
             oldPassenger.setPhone(passengerDto.phone());
-            return passengerMapper.INSTANCE.toPassengerDTOID(passengerRepository.save(oldPassenger));
+            return passengerMapper.INSTANCE.toPassengerDto(passengerRepository.save(oldPassenger));
         });
     }
 
@@ -63,10 +69,10 @@ public class PassengerServiceImpl  implements PassengerService{
         passengerRepository.deleteById(id);
     }
 
-    private List<PassengerDto> toListPassengerDTO(List<Passenger> passengers) {
-        List<PassengerDto> passengerDtos = new ArrayList<>();
+    private List<PassengerDtoGet> toListPassengerDTO(List<Passenger> passengers) {
+        List<PassengerDtoGet> passengerDtos = new ArrayList<>();
         for (Passenger passenger : passengers) {
-            passengerDtos.add(passengerMapper.INSTANCE.toPassengerDTOID(passenger));
+            passengerDtos.add(passengerMapper.INSTANCE.toPassengerDtoGetWithReservations(passenger));
         }
         return passengerDtos;
     }

@@ -1,6 +1,7 @@
 package com.example.aerolinea.api;
 
-import com.example.aerolinea.dto.PassengerDto;
+import com.example.aerolinea.dto.request.PassengerDto;
+import com.example.aerolinea.dto.response.PassengerDtoGet;
 import com.example.aerolinea.service.PassengerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,21 @@ public class PassengerController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<PassengerDto>> getAllPassengers() {
+    public ResponseEntity<List<PassengerDtoGet>> getAllPassengers() {
         return ResponseEntity.ok(passengerService.searchPassengers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PassengerDto> getPassengerById(@PathVariable Long id) {
+    public ResponseEntity<PassengerDtoGet> getPassengerById(@PathVariable Long id) {
         return passengerService.searchPassengerById(id)
+                .map(c -> ResponseEntity.ok().body(c))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/identification/{identification}")
+    public ResponseEntity<PassengerDtoGet> getPassengerByIdentification(@PathVariable String identification) {
+        int id = Integer.parseInt(identification);
+        return passengerService.searchPassengerByIdentification(id)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
     }

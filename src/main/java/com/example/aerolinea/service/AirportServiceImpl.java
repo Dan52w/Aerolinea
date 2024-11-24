@@ -1,7 +1,8 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.AirportDto;
+import com.example.aerolinea.dto.request.AirportDto;
 import com.example.aerolinea.dto.AirportMapper;
+import com.example.aerolinea.dto.response.AirportDtoGet;
 import com.example.aerolinea.entity.Airport;
 import com.example.aerolinea.repository.AirportRepository;
 import org.springframework.stereotype.Service;
@@ -23,28 +24,28 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public AirportDto saveAirport(AirportDto airportDto) {
         Airport airport = airportMapper.INSTANCE.toAirport(airportDto);
-        return airportMapper.INSTANCE.toAirportDTOID(airportRepository.save(airport));
+        return airportMapper.INSTANCE.toAirportDTO(airportRepository.save(airport));
     }
 
     @Override
     public Optional<AirportDto> searchAirportById(Long id) {
-        return airportRepository.findById(id).map(airportMapper::toAirportDTOID);
+        return airportRepository.findById(id).map(airportMapper::toAirportDTO);
     }
 
     @Override
-    public List<AirportDto> searchAirportByName(String name) {
+    public List<AirportDtoGet> searchAirportByName(String name) {
         List<Airport> airports = airportRepository.findByName(name);
         return toListAirportDTO(airports);
     }
 
     @Override
-    public List<AirportDto> searchAirports() {
+    public List<AirportDtoGet> searchAirports() {
         List<Airport> airports = airportRepository.findAll();
         return toListAirportDTO(airports);
     }
 
     @Override
-    public List<AirportDto> searchAirportByIds(List<Long> ids) {
+    public List<AirportDtoGet> searchAirportByIds(List<Long> ids) {
         List<Airport> airports = airportRepository.findByidIn(ids);
         return toListAirportDTO(airports);
     }
@@ -55,7 +56,7 @@ public class AirportServiceImpl implements AirportService {
             oldAirport.setCity(airportDto.city());
             oldAirport.setCountry(airportDto.country());
             oldAirport.setName(airportDto.name());
-            return airportMapper.INSTANCE.toAirportDTOID(airportRepository.save(oldAirport));
+            return airportMapper.INSTANCE.toAirportDTO(airportRepository.save(oldAirport));
         });
     }
 
@@ -64,10 +65,10 @@ public class AirportServiceImpl implements AirportService {
 
     }
 
-    private List<AirportDto> toListAirportDTO(List<Airport> airports) {
-        List<AirportDto> airportDtos = new ArrayList<>();
+    private List<AirportDtoGet> toListAirportDTO(List<Airport> airports) {
+        List<AirportDtoGet> airportDtos = new ArrayList<>();
         for (Airport airport : airports) {
-            airportDtos.add(airportMapper.INSTANCE.toAirportDTOID(airport));
+            airportDtos.add(airportMapper.INSTANCE.toAirportDtoGet(airport));
         }
         return airportDtos;
     }

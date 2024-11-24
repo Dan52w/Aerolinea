@@ -1,4 +1,4 @@
-package com.example.aerolinea.dto;
+package com.example.aerolinea.dto.request;
 
 public record AirportDto(Long id,
                          String name,

@@ -19,6 +19,9 @@ public class Airport {
     private String city;
     private String country;
 
-    @ManyToMany(mappedBy = "airports")  // Mapeo de la relación inversa
-    private List<Flight> flights;
+    @OneToMany(mappedBy = "airportOrigin")
+    private List<Flight> flightsAsOrigin;
+
+    @OneToMany(mappedBy = "airportDestiny")
+    private List<Flight> flightsAsDestiny;
 }

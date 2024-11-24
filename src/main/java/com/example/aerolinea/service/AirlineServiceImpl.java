@@ -1,7 +1,8 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.AirlineDto;
+import com.example.aerolinea.dto.request.AirlineDto;
 import com.example.aerolinea.dto.AirlineMapper;
+import com.example.aerolinea.dto.response.AirlineDtoGet;
 import com.example.aerolinea.entity.Airline;
 import com.example.aerolinea.repository.AirlineRepository;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AirlineServiceImpl implements AirlineService {
@@ -23,30 +25,36 @@ public class AirlineServiceImpl implements AirlineService {
     @Override
     public AirlineDto saveAirline(AirlineDto airlineDto) {
         Airline airline = airlineMapper.INSTANCE.toAirline(airlineDto);
-        return airlineMapper.toAirlineDTOID(airlineRepository.save(airline));
+        return airlineMapper.INSTANCE.toAirlineDTO(airlineRepository.save(airline));
     }
 
     @Override
     public Optional<AirlineDto> searchAirlineById(Long id) {
-        return airlineRepository.findById(id).map(airlineMapper::toAirlineDTOID);
+        return airlineRepository.findById(id).map(airlineMapper::toAirlineDTO);
     }
 
     @Override
-    public List<AirlineDto> searchAirlineByName(String name) {
+    public List<AirlineDtoGet> searchAirlineByName(String name) {
         List<Airline> airlines = airlineRepository.findByName(name);
-        return toListAirlineDTO(airlines);
+        return airlines.stream()
+                .map(airlineMapper::toAirlineDtoGet)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AirlineDto> searchAirlines() {
+    public List<AirlineDtoGet> searchAirlines() {
         List<Airline> airlines = airlineRepository.findAll();
-        return toListAirlineDTO(airlines);
+        return airlines.stream()
+                .map(airlineMapper::toAirlineDtoGet)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<AirlineDto> searchAirlineByIds(List<Long> ids) {
+    public List<AirlineDtoGet> searchAirlineByIds(List<Long> ids) {
         List<Airline> airlines = airlineRepository.findByIdIn(ids);
-        return toListAirlineDTO(airlines);
+        return airlines.stream()
+                .map(airlineMapper::toAirlineDtoGet)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +63,7 @@ public class AirlineServiceImpl implements AirlineService {
             oldAirline.setName(airlineDto.name());
             oldAirline.setCodeAirline(airlineDto.codeAirline());
             oldAirline.setCountryOrigin(airlineDto.countryOrigin());
-            return airlineMapper.INSTANCE.toAirlineDTOID(airlineRepository.save(oldAirline));
+            return airlineMapper.INSTANCE.toAirlineDTO(airlineRepository.save(oldAirline));
         });
     }
 
@@ -64,10 +72,10 @@ public class AirlineServiceImpl implements AirlineService {
         airlineRepository.deleteById(id);
     }
 
-    private List<AirlineDto> toListAirlineDTO(List<Airline> airlines) {
-        List<AirlineDto> airlineDtos = new ArrayList<>();
+    private List<AirlineDtoGet> toListAirlineDTO(List<Airline> airlines) {
+        List<AirlineDtoGet> airlineDtos = new ArrayList<>();
         for(Airline airline : airlines) {
-            airlineDtos.add(airlineMapper.INSTANCE.toAirlineDTOID(airline));
+            airlineDtos.add(airlineMapper.INSTANCE.toAirlineDtoGet(airline));
         }
         return airlineDtos;
     }

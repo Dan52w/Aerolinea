@@ -1,10 +1,10 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.FlightDto;
+import com.example.aerolinea.dto.request.FlightDto;
 import com.example.aerolinea.dto.FlightMapper;
+import com.example.aerolinea.dto.response.FlightDtoGet;
 import com.example.aerolinea.entity.Flight;
 import com.example.aerolinea.repository.FlightRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,29 +23,41 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public FlightDto saveFlight(FlightDto flightDto) {
-        Flight flight = flightMapper.INSTANCE.toFlight(flightDto);
-        return flightMapper.INSTANCE.toFlightDTOID(flightRepository.save(flight));
+        Flight flight = flightMapper.INSTANCE.toFlightSave(flightDto);
+        return flightMapper.INSTANCE.toFlightDto(flightRepository.save(flight));
     }
 
     @Override
     public Optional<FlightDto> searchFlightById(Long id) {
-        return flightRepository.findById(id).map(flightMapper::toFlightDTOID);
+        return flightRepository.findById(id).map(flightMapper::toFlightDto);
     }
 
     @Override
-    public List<FlightDto> searchFlightByName(String name) {
+    public List<FlightDtoGet> searchFlightByOrigin(String name) {
         List<Flight> flights = flightRepository.findByOrigin(name);
         return toListFlightDTO(flights);
     }
 
     @Override
-    public List<FlightDto> searchFlights() {
+    public List<FlightDtoGet> searchFlightByDestination(String name) {
+        List<Flight> flights = flightRepository.findByDestination(name);
+        return toListFlightDTO(flights);
+    }
+
+    @Override
+    public List<FlightDtoGet> searchFlightByOriginAndDestination(String origin, String destination) {
+        List<Flight> flights = flightRepository.findByOriginAndDestination(origin, destination);
+        return toListFlightDTO(flights);
+    }
+
+    @Override
+    public List<FlightDtoGet> searchFlights() {
         List<Flight> flights = flightRepository.findAll();
         return toListFlightDTO(flights);
     }
 
     @Override
-    public List<FlightDto> searchFlightByIds(List<Long> ids) {
+    public List<FlightDtoGet> searchFlightByIds(List<Long> ids) {
         List<Flight> flights = flightRepository.findByidIn(ids);
         return toListFlightDTO(flights);
     }
@@ -59,7 +71,7 @@ public class FlightServiceImpl implements FlightService {
             oldFlight.setOrigin(flightDto.origin());
             oldFlight.setTimeArrival(flightDto.timeArrival());
             oldFlight.setDepartureDate(flightDto.departureDate());
-            return flightMapper.INSTANCE.toFlightDTOID(flightRepository.save(oldFlight));
+            return flightMapper.INSTANCE.toFlightDto(flightRepository.save(oldFlight));
         });
     }
 
@@ -68,10 +80,10 @@ public class FlightServiceImpl implements FlightService {
         flightRepository.deleteById(id);
     }
 
-    private List<FlightDto> toListFlightDTO(List<Flight> flights) {
-        List<FlightDto> flightDtos = new ArrayList<>();
+    private List<FlightDtoGet> toListFlightDTO(List<Flight> flights) {
+        List<FlightDtoGet> flightDtos = new ArrayList<>();
         for (Flight flight : flights) {
-            flightDtos.add(flightMapper.INSTANCE.toFlightDTOID(flight));
+            flightDtos.add(flightMapper.INSTANCE.toFlightDtoGet(flight));
         }
         return flightDtos;
     }

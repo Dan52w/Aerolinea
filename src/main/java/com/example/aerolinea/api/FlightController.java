@@ -1,9 +1,10 @@
 package com.example.aerolinea.api;
 
-import com.example.aerolinea.dto.FlightDto;
-import com.example.aerolinea.entity.Flight;
+import com.example.aerolinea.dto.request.FlightDto;
+import com.example.aerolinea.dto.response.FlightDtoGet;
 import com.example.aerolinea.service.FlightService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -11,6 +12,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
@@ -21,8 +23,19 @@ public class FlightController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<FlightDto>> getAllFlights() {
+    public ResponseEntity<List<FlightDtoGet>> getAllFlights() {
         return ResponseEntity.ok(flightService.searchFlights());
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/origin/{origin}")
+    public ResponseEntity<List<FlightDtoGet>> getFlight(@PathVariable String origin) {
+        return ResponseEntity.ok(flightService.searchFlightByOrigin(origin));
+    }
+
+    @GetMapping("/destiny/{destiny}")
+    public ResponseEntity<List<FlightDtoGet>> getFlightByDestiny(@PathVariable String destiny) {
+        return ResponseEntity.ok(flightService.searchFlightByDestination(destiny));
     }
 
     @GetMapping("/{id}")
@@ -30,6 +43,12 @@ public class FlightController {
         return flightService.searchFlightById(id)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    //@PreAuthorize("hasRole('USER')")
+    @GetMapping("/{origin}/{destiny}")
+    public ResponseEntity<List<FlightDtoGet>> getFlightByOriginAndDestiny(@PathVariable String origin, @PathVariable String destiny) {
+        return ResponseEntity.ok(flightService.searchFlightByOriginAndDestination(origin, destiny));
     }
 
     @PutMapping("/{id}")

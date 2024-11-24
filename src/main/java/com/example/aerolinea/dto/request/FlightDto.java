@@ -1,5 +1,6 @@
-package com.example.aerolinea.dto;
+package com.example.aerolinea.dto.request;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -9,5 +10,8 @@ public record FlightDto(Long id,
                         LocalDateTime departureDate,
                         LocalDateTime timeArrival,
                         Duration duration,
-                        int ability) {
+                        int ability,
+                        Long airportOrigin,
+                        Long airportDestiny,
+                        Long airline) {
 }

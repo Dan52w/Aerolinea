@@ -24,15 +24,16 @@ public class Flight {
     private Duration duration;
     private int ability;
 
-    @ManyToMany
-    @JoinTable(
-            name = "flight_airport",
-            joinColumns = @JoinColumn(name = "flight_id"),
-            inverseJoinColumns = @JoinColumn(name = "airport_id")
-    )
-    private List<Airport> airports;
+    @ManyToOne
+    @JoinColumn(name = "id_airportOrigin") // Clave foránea para aeropuerto de origen
+    private Airport airportOrigin;
 
-    @JoinColumn(name = "airline_id") // Columna FK en la tabla `flight`
+    @ManyToOne
+    @JoinColumn(name = "id_airportDestiny") // Clave foránea para aeropuerto de destino
+    private Airport airportDestiny;
+
+    @ManyToOne
+    @JoinColumn(name = "airline_id")
     private Airline airline;
 
     @OneToMany(mappedBy = "flight")

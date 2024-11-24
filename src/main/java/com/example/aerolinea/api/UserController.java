@@ -1,6 +1,7 @@
 package com.example.aerolinea.api;
 
-import com.example.aerolinea.dto.UserDto;
+import com.example.aerolinea.dto.request.UserDto;
+import com.example.aerolinea.dto.response.UserDtoGet;
 import com.example.aerolinea.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,20 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UserDto>> getAllUsers() {
+    public ResponseEntity<List<UserDtoGet>> getAllUsers() {
         return ResponseEntity.ok(userService.searchUsers());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         return userService.searchUserById(id)
+                .map(c -> ResponseEntity.ok().body(c))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
+        return userService.searchUserByUsername(username)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
     }

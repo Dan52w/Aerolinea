@@ -1,4 +1,4 @@
-package com.example.aerolinea.dto;
+package com.example.aerolinea.dto.request;
 
 import java.time.LocalDate;
 

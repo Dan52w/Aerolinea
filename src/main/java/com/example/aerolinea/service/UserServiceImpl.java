@@ -1,7 +1,8 @@
 package com.example.aerolinea.service;
 
-import com.example.aerolinea.dto.UserDto;
+import com.example.aerolinea.dto.request.UserDto;
 import com.example.aerolinea.dto.UserMapper;
+import com.example.aerolinea.dto.response.UserDtoGet;
 import com.example.aerolinea.entity.User;
 
 import com.example.aerolinea.repository.UserRepository;
@@ -24,32 +25,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto userDto) {
         User user = userMapper.INSTANCE.toUser(userDto);
-        return userMapper.INSTANCE.toUserDTOID(userRepository.save(user));
+        return userMapper.INSTANCE.toUserDTO(userRepository.save(user));
     }
 
     @Override
     public Optional<UserDto> searchUserById(Long id) {
-        return userRepository.findById(id).map(userMapper::toUserDTOID);
+        return userRepository.findById(id).map(userMapper::toUserDTO);
     }
 
     @Override
     public Optional<UserDto> searchUserByEmail(String email) {
-        return userRepository.findByEmail(email).map(userMapper::toUserDTOID);
+        return userRepository.findByEmail(email).map(userMapper::toUserDTO);
     }
 
     @Override
     public Optional<UserDto> searchUserByUsername(String username) {
-        return userRepository.findByUsername(username).map(userMapper::toUserDTOID);
+        return userRepository.findByUsername(username).map(userMapper::toUserDTO);
     }
 
     @Override
-    public List<UserDto> searchUsers() {
+    public List<UserDtoGet> searchUsers() {
         List<User> users = userRepository.findAll();
         return toListUserDTO(users);
     }
 
     @Override
-    public List<UserDto> searchUserbyIds(List<Long> ids) {
+    public List<UserDtoGet> searchUserbyIds(List<Long> ids) {
         List<User> users = userRepository.findByidIn(ids);
         return toListUserDTO(users);
     }
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
             oldUser.setAddress(userDto.address());
             oldUser.setDob(userDto.dob());
             oldUser.setPhone(userDto.phone());
-            return userMapper.INSTANCE.toUserDTOID(userRepository.save(oldUser));
+            return userMapper.INSTANCE.toUserDTO(userRepository.save(oldUser));
         });
     }
 
@@ -74,10 +75,10 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    private List<UserDto> toListUserDTO(List<User> users) {
-        List<UserDto> userDtos = new ArrayList<>();
+    private List<UserDtoGet> toListUserDTO(List<User> users) {
+        List<UserDtoGet> userDtos = new ArrayList<>();
         for (User user : users) {
-            userDtos.add(userMapper.INSTANCE.toUserDTOID(user));
+            userDtos.add(userMapper.INSTANCE.toUserDtoGet(user));
         }
         return userDtos;
     }

@@ -34,7 +34,7 @@ public interface UserMapper {
     default List<String> mapReservationsToBookings(List<Booking> reservations) {
         // Aquí puedes modificar este mapeo para devolver el atributo que deseas (por ejemplo, un identificador o nombre de vuelo)
         return reservations.stream()
-                .map(booking -> booking.getUser() != null ? "Flight: " + booking.getFlight().getId() + " With Destiny: " + booking.getFlight().getDestination() : null)
+                .map(booking -> booking.getUser() != null ? "Flight: " + booking.getFlight().getId() + " With Destiny: " + booking.getFlight().getDestination() + " Passenger: " + booking.getPassenger().getFirstName() + " " + booking.getPassenger().getLastName() : null)
                 .collect(Collectors.toList());
     }
 }

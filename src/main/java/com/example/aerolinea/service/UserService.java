@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface UserService {
     UserDto saveUser(UserDto userDto);
-    Optional<UserDto> searchUserById(Long id);
-    Optional<UserDto> searchUserByEmail(String email);
-    Optional<UserDto> searchUserByUsername(String username);
+    Optional<UserDtoGet> searchUserById(Long id);
+    Optional<UserDtoGet> searchUserByEmail(String email);
+    Optional<UserDtoGet> searchUserByUsername(String username);
     List<UserDtoGet> searchUsers();
     List<UserDtoGet> searchUserbyIds(List<Long> ids);
     Optional<UserDto> updateUser(Long id, UserDto userDto);

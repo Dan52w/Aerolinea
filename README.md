@@ -11,6 +11,15 @@ Dejare unos ejemplos para el uso de estos:
 
 Lo primero seria Registrar un usuario:
 
+ALGO DE SUMA IMPORTANCIA
+
+Agregar a la base de datos los siguienes Roles:
+
+1. ROLE_USER 
+2. ROLE_ADMIN
+
+Debe agregarlos tal cual como estan escritos
+
 Registrarse:
   
   {

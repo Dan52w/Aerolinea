@@ -29,18 +29,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> searchUserById(Long id) {
-        return userRepository.findById(id).map(userMapper::toUserDTO);
+    public Optional<UserDtoGet> searchUserById(Long id) {
+        return userRepository.findById(id).map(userMapper::toUserDtoGet);
     }
 
     @Override
-    public Optional<UserDto> searchUserByEmail(String email) {
-        return userRepository.findByEmail(email).map(userMapper::toUserDTO);
+    public Optional<UserDtoGet> searchUserByEmail(String email) {
+        return userRepository.findByEmail(email).map(userMapper::toUserDtoGet);
     }
 
     @Override
-    public Optional<UserDto> searchUserByUsername(String username) {
-        return userRepository.findByUsername(username).map(userMapper::toUserDTO);
+    public Optional<UserDtoGet> searchUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(userMapper::toUserDtoGet);
     }
 
     @Override

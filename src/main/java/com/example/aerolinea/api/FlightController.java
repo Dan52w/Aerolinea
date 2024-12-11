@@ -27,7 +27,6 @@ public class FlightController {
         return ResponseEntity.ok(flightService.searchFlights());
     }
 
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("/origin/{origin}")
     public ResponseEntity<List<FlightDtoGet>> getFlight(@PathVariable String origin) {
         return ResponseEntity.ok(flightService.searchFlightByOrigin(origin));

@@ -26,14 +26,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDtoGet> getUserById(@PathVariable Long id) {
         return userService.searchUserById(id)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/username/{username}")
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<UserDtoGet> getUserByUsername(@PathVariable String username) {
         return userService.searchUserByUsername(username)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());

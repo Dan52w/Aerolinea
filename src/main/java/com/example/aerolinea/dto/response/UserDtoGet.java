@@ -1,7 +1,5 @@
 package com.example.aerolinea.dto.response;
 
-import com.example.aerolinea.dto.request.BookingDto;
-
 import java.time.LocalDate;
 import java.util.List;
 

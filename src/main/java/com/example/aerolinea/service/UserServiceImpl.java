@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserDto userDto) {
-        User user = userMapper.INSTANCE.toUser(userDto);
-        return userMapper.INSTANCE.toUserDTO(userRepository.save(user));
+        User user = userMapper.toUser(userDto);
+        return userMapper.toUserDTO(userRepository.save(user));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             oldUser.setAddress(userDto.address());
             oldUser.setDob(userDto.dob());
             oldUser.setPhone(userDto.phone());
-            return userMapper.INSTANCE.toUserDTO(userRepository.save(oldUser));
+            return userMapper.toUserDTO(userRepository.save(oldUser));
         });
     }
 
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     private List<UserDtoGet> toListUserDTO(List<User> users) {
         List<UserDtoGet> userDtos = new ArrayList<>();
         for (User user : users) {
-            userDtos.add(userMapper.INSTANCE.toUserDtoGet(user));
+            userDtos.add(userMapper.toUserDtoGet(user));
         }
         return userDtos;
     }

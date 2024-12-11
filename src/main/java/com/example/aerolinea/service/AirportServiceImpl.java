@@ -23,8 +23,8 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public AirportDto saveAirport(AirportDto airportDto) {
-        Airport airport = airportMapper.INSTANCE.toAirport(airportDto);
-        return airportMapper.INSTANCE.toAirportDTO(airportRepository.save(airport));
+        Airport airport = airportMapper.toAirport(airportDto);
+        return airportMapper.toAirportDTO(airportRepository.save(airport));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AirportServiceImpl implements AirportService {
             oldAirport.setCity(airportDto.city());
             oldAirport.setCountry(airportDto.country());
             oldAirport.setName(airportDto.name());
-            return airportMapper.INSTANCE.toAirportDTO(airportRepository.save(oldAirport));
+            return airportMapper.toAirportDTO(airportRepository.save(oldAirport));
         });
     }
 
@@ -68,7 +68,7 @@ public class AirportServiceImpl implements AirportService {
     private List<AirportDtoGet> toListAirportDTO(List<Airport> airports) {
         List<AirportDtoGet> airportDtos = new ArrayList<>();
         for (Airport airport : airports) {
-            airportDtos.add(airportMapper.INSTANCE.toAirportDtoGet(airport));
+            airportDtos.add(airportMapper.toAirportDtoGet(airport));
         }
         return airportDtos;
     }

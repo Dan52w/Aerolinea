@@ -23,8 +23,8 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public FlightDto saveFlight(FlightDto flightDto) {
-        Flight flight = flightMapper.INSTANCE.toFlightSave(flightDto);
-        return flightMapper.INSTANCE.toFlightDto(flightRepository.save(flight));
+        Flight flight = flightMapper.toFlightSave(flightDto);
+        return flightMapper.toFlightDto(flightRepository.save(flight));
     }
 
     @Override
@@ -71,7 +71,7 @@ public class FlightServiceImpl implements FlightService {
             oldFlight.setOrigin(flightDto.origin());
             oldFlight.setTimeArrival(flightDto.timeArrival());
             oldFlight.setDepartureDate(flightDto.departureDate());
-            return flightMapper.INSTANCE.toFlightDto(flightRepository.save(oldFlight));
+            return flightMapper.toFlightDto(flightRepository.save(oldFlight));
         });
     }
 
@@ -83,7 +83,7 @@ public class FlightServiceImpl implements FlightService {
     private List<FlightDtoGet> toListFlightDTO(List<Flight> flights) {
         List<FlightDtoGet> flightDtos = new ArrayList<>();
         for (Flight flight : flights) {
-            flightDtos.add(flightMapper.INSTANCE.toFlightDtoGet(flight));
+            flightDtos.add(flightMapper.toFlightDtoGet(flight));
         }
         return flightDtos;
     }

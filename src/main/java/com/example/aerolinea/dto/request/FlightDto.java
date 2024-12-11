@@ -1,6 +1,5 @@
 package com.example.aerolinea.dto.request;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 

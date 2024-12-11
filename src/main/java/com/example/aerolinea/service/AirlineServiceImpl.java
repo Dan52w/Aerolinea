@@ -24,8 +24,8 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public AirlineDto saveAirline(AirlineDto airlineDto) {
-        Airline airline = airlineMapper.INSTANCE.toAirline(airlineDto);
-        return airlineMapper.INSTANCE.toAirlineDTO(airlineRepository.save(airline));
+        Airline airline = airlineMapper.toAirline(airlineDto);
+        return airlineMapper.toAirlineDTO(airlineRepository.save(airline));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class AirlineServiceImpl implements AirlineService {
             oldAirline.setName(airlineDto.name());
             oldAirline.setCodeAirline(airlineDto.codeAirline());
             oldAirline.setCountryOrigin(airlineDto.countryOrigin());
-            return airlineMapper.INSTANCE.toAirlineDTO(airlineRepository.save(oldAirline));
+            return airlineMapper.toAirlineDTO(airlineRepository.save(oldAirline));
         });
     }
 
@@ -75,7 +75,7 @@ public class AirlineServiceImpl implements AirlineService {
     private List<AirlineDtoGet> toListAirlineDTO(List<Airline> airlines) {
         List<AirlineDtoGet> airlineDtos = new ArrayList<>();
         for(Airline airline : airlines) {
-            airlineDtos.add(airlineMapper.INSTANCE.toAirlineDtoGet(airline));
+            airlineDtos.add(airlineMapper.toAirlineDtoGet(airline));
         }
         return airlineDtos;
     }

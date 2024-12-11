@@ -1,6 +1,5 @@
 package com.example.aerolinea.repository;
 
-import com.example.aerolinea.entity.Booking;
 import com.example.aerolinea.entity.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
 

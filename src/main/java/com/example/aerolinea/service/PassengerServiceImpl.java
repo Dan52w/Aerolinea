@@ -23,8 +23,8 @@ public class PassengerServiceImpl  implements PassengerService{
 
     @Override
     public PassengerDto savePassenger(PassengerDto passengerDto) {
-        Passenger passenger = passengerMapper.INSTANCE.toPassenger(passengerDto);
-        return passengerMapper.INSTANCE.toPassengerDto(passengerRepository.save(passenger));
+        Passenger passenger = passengerMapper.toPassenger(passengerDto);
+        return passengerMapper.toPassengerDto(passengerRepository.save(passenger));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PassengerServiceImpl  implements PassengerService{
             oldPassenger.setLastName(passengerDto.lastName());
             oldPassenger.setIdentification(passengerDto.identification());
             oldPassenger.setPhone(passengerDto.phone());
-            return passengerMapper.INSTANCE.toPassengerDto(passengerRepository.save(oldPassenger));
+            return passengerMapper.toPassengerDto(passengerRepository.save(oldPassenger));
         });
     }
 
@@ -72,7 +72,7 @@ public class PassengerServiceImpl  implements PassengerService{
     private List<PassengerDtoGet> toListPassengerDTO(List<Passenger> passengers) {
         List<PassengerDtoGet> passengerDtos = new ArrayList<>();
         for (Passenger passenger : passengers) {
-            passengerDtos.add(passengerMapper.INSTANCE.toPassengerDtoGetWithReservations(passenger));
+            passengerDtos.add(passengerMapper.toPassengerDtoGetWithReservations(passenger));
         }
         return passengerDtos;
     }

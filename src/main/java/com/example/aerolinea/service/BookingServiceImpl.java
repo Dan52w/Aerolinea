@@ -5,8 +5,6 @@ import com.example.aerolinea.dto.BookingMapper;
 import com.example.aerolinea.dto.response.BookingDtoGet;
 import com.example.aerolinea.entity.Booking;
 import com.example.aerolinea.repository.BookingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto saveBook(BookingDto bookingDto) {
-        Booking booking = bookingMapper.INSTANCE.toBooking(bookingDto);
-        return bookingMapper.INSTANCE.toBookingDto(bookingRepository.save(booking));
+        Booking booking = bookingMapper.toBooking(bookingDto);
+        return bookingMapper.toBookingDto(bookingRepository.save(booking));
     }
 
     @Override
@@ -57,7 +55,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findById(id).map(oldBooking ->{
             oldBooking.setReservationDate(bookingDto.reservationDate());
             oldBooking.setNumberPassengers(bookingDto.numberPassengers());
-            return bookingMapper.INSTANCE.toBookingDto(bookingRepository.save(oldBooking));
+            return bookingMapper.toBookingDto(bookingRepository.save(oldBooking));
         });
     }
 
@@ -69,7 +67,7 @@ public class BookingServiceImpl implements BookingService {
     private List<BookingDtoGet> toListBookingDTO(List<Booking> bookings) {
         List<BookingDtoGet> bookingDtos = new ArrayList<>();
         for(Booking booking : bookings) {
-            bookingDtos.add(bookingMapper.INSTANCE.toBookingDtoGet(booking));
+            bookingDtos.add(bookingMapper.toBookingDtoGet(booking));
         }
         return bookingDtos;
     }

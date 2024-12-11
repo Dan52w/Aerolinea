@@ -2,7 +2,6 @@ package com.example.aerolinea.segurity.service;
 
 import com.example.aerolinea.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
